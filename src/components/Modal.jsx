@@ -4,11 +4,11 @@ import { X, Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass } from 
 import { DashboardItem, ProgressBar, PredictionDisplay } from './ModalComponents';
 
 const useTypingEffect = (text, speed = 50) => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState(' ');
 
   useEffect(() => {
     let i = 0;
-    setDisplayedText('');
+    setDisplayedText(' ');
     const typingInterval = setInterval(() => {
       if (i < text.length) {
         setDisplayedText(prev => prev + text.charAt(i));
