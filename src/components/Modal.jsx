@@ -38,6 +38,8 @@ const Modal = ({ title, onClose }) => {
     }
   };
 
+  const isWideModal = title === 'Communications';
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -50,7 +52,7 @@ const Modal = ({ title, onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] w-11/12 max-w-md"
+        className={`bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] ${isWideModal ? 'w-11/12 max-w-6xl' : 'w-11/12 max-w-md'}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
