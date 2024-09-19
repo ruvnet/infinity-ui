@@ -43,6 +43,8 @@ const Modal = ({ title, onClose }) => {
   const getModalWidth = () => {
     if (title === 'Communications' && window.innerWidth >= 768) {
       return 'w-11/12 max-w-4xl';
+    } else if (title === 'Communications' && window.innerWidth < 768) {
+      return 'w-auto';
     } else {
       return 'w-auto';
     }
