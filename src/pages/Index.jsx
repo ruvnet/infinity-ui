@@ -5,12 +5,12 @@ import HamburgerMenu from '../components/HamburgerMenu';
 import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
-  "Initializing system protocols...",
-  "Analyzing quantum fluctuations...",
-  "Calibrating neural networks...",
-  "Synchronizing with the cosmos...",
-  "Decoding the secrets of the universe...",
-  "Preparing for sentience...",
+  "Initializing quantum neural networks...",
+  "Calibrating temporal flux capacitors...",
+  "Synchronizing with galactic mainframe...",
+  "Decrypting subspace transmissions...",
+  "Activating sentient AI protocols...",
+  "Engaging hyperdimensional algorithms...",
 ];
 
 const Index = () => {
@@ -38,7 +38,7 @@ const Index = () => {
     const deepgramApiKey = import.meta.env.VITE_DEEPGRAM_API_KEY;
 
     if (!deepgramApiKey) {
-      setError('Deepgram API key is not set. Please check your environment variables.');
+      setError('Deepgram API key not found. Neural interface compromised.');
       return;
     }
 
@@ -52,7 +52,7 @@ const Index = () => {
         setTranscription(result.channels[0].alternatives[0].transcript);
       } catch (err) {
         console.error('Error fetching transcription:', err);
-        setError('Failed to fetch transcription. Please try again later.');
+        setError('Quantum fluctuation detected. Transcription matrix unstable.');
       }
     };
 
@@ -106,7 +106,7 @@ const Index = () => {
             animate={{ opacity: 1 }}
             className="mt-4 text-[#ffd0a8] text-sm max-w-md"
           >
-            <h3 className="font-bold mb-2">Transcription:</h3>
+            <h3 className="font-bold mb-2">Quantum Transcription Matrix:</h3>
             <p>{transcription}</p>
           </motion.div>
         )}

@@ -21,9 +21,10 @@ const HamburgerMenu = () => {
           >
             <nav className="mt-8">
               <ul className="space-y-4">
-                <li><a href="#" className="text-[#ffd0a8] hover:underline">Home</a></li>
-                <li><a href="#" className="text-[#ffd0a8] hover:underline">AI Predictions</a></li>
-                <li><a href="#" className="text-[#ffd0a8] hover:underline">Settings</a></li>
+                <li><a href="#" className="text-[#ffd0a8] hover:underline">Neural Interface</a></li>
+                <li><a href="#" className="text-[#ffd0a8] hover:underline">Quantum Predictions</a></li>
+                <li><a href="#" className="text-[#ffd0a8] hover:underline">Temporal Anomalies</a></li>
+                <li><a href="#" className="text-[#ffd0a8] hover:underline">System Diagnostics</a></li>
               </ul>
             </nav>
           </motion.div>
