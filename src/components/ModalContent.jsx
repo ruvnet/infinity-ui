@@ -102,31 +102,59 @@ export const TemporalAnomalies = () => {
   );
 };
 
-export const SystemDiagnostics = () => (
-  <div className="space-y-4">
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">System Integrity</div>
-      <div>98.7%</div>
+export const SystemDiagnostics = () => {
+  const [systemLogs, setSystemLogs] = useState([]);
+  const [systemStatus, setSystemStatus] = useState("Optimal");
+
+  useEffect(() => {
+    const logs = [
+      "Initializing quantum core...",
+      "Calibrating tachyon emitters...",
+      "Synchronizing with galactic network...",
+      "Updating AI neural pathways...",
+      "Scanning for interdimensional anomalies...",
+      "Optimizing dark matter reactors...",
+    ];
+
+    const addLog = (index) => {
+      if (index < logs.length) {
+        setSystemLogs((prevLogs) => [...prevLogs, logs[index]]);
+        setTimeout(() => addLog(index + 1), 1000);
+      }
+    };
+
+    addLog(0);
+
+    const statusInterval = setInterval(() => {
+      const statuses = ["Optimal", "Nominal", "Caution", "Alert"];
+      setSystemStatus(statuses[Math.floor(Math.random() * statuses.length)]);
+    }, 5000);
+
+    return () => clearInterval(statusInterval);
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <DashboardItem icon={Cpu} label="Quantum Core" value="Online" />
+        <DashboardItem icon={ZapIcon} label="Power Output" value="1.21 ZW" />
+        <DashboardItem icon={Atom} label="Subspace Integrity" value="99.7%" />
+        <DashboardItem icon={Activity} label="AI Cognition" value="Hyper" />
+      </div>
+      <ProgressBar label="Dark Matter Containment" value={92} max={100} />
+      <ProgressBar label="Antimatter Synthesis" value={78} max={100} />
+      <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
+        <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">System Status</div>
+        <FlashingText text={systemStatus} />
+      </div>
+      <div className="mt-4 bg-black/30 p-3 rounded-lg font-mono text-xs h-40 overflow-y-auto">
+        <div className="text-[#ffd0a8] opacity-70 mb-1">System Logs:</div>
+        {systemLogs.map((log, index) => (
+          <div key={index} className="text-[#00ff00]">
+            {`[${new Date().toISOString()}] ${log}`}
+          </div>
+        ))}
+      </div>
     </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">AI Subsystems</div>
-      <div>Optimal</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Quantum Core</div>
-      <div>Stable</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Firewall Integrity</div>
-      <div>99.9%</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Quantum Encryption</div>
-      <div>Active</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">System Uptime</div>
-      <div>7,345 days</div>
-    </div>
-  </div>
-);
+  );
+};
