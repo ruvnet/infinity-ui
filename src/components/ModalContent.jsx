@@ -21,7 +21,23 @@ export const NeuralInterface = () => (
   </div>
 );
 
-export const QuantumPredictions = ({ getRandomPrediction }) => {
+const getRandomPrediction = () => {
+  const predictions = [
+    "Quantum fluctuations indicate a 73% chance of discovering a new parallel universe within the next 48 hours.",
+    "Probability matrix suggests an imminent breakthrough in faster-than-light travel technology.",
+    "Temporal analysis predicts a significant historical event will be altered in the next century.",
+    "Quantum entanglement patterns hint at the emergence of a new form of sentient AI within 5 years.",
+    "Subspace calculations reveal a 62% likelihood of contact with an advanced alien civilization by 2050.",
+    "Quantum tunneling data suggests the discovery of a stable wormhole in the Andromeda galaxy.",
+    "Probability waves indicate a 58% chance of unlocking the secrets of dark matter within a decade.",
+    "Temporal flux readings predict a major paradigm shift in our understanding of time itself.",
+    "Quantum superposition analysis suggests the development of practical teleportation by 2075.",
+    "Multiversal calculations hint at a convergence of parallel timelines within the next century."
+  ];
+  return predictions[Math.floor(Math.random() * predictions.length)];
+};
+
+export const QuantumPredictions = () => {
   const [latestPrediction, setLatestPrediction] = useState(getRandomPrediction());
   const [quantumForecast, setQuantumForecast] = useState(getRandomPrediction());
   
@@ -38,7 +54,7 @@ export const QuantumPredictions = ({ getRandomPrediction }) => {
       clearInterval(latestPredictionInterval);
       clearInterval(quantumForecastInterval);
     };
-  }, [getRandomPrediction]);
+  }, []);
 
   return (
     <div className="space-y-4">
