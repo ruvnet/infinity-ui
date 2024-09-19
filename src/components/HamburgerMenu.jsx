@@ -24,7 +24,7 @@ const HamburgerMenu = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween' }}
-            className="fixed top-0 right-0 h-full w-64 md:w-64 bg-[#c34524] shadow-lg p-4 flex flex-col"
+            className="fixed top-0 right-0 h-full w-64 md:w-64 bg-[#b73616] shadow-lg p-4 flex flex-col"
           >
             <nav className="mt-8 flex-grow">
               <ul className="space-y-4">
