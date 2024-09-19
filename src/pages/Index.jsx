@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingScreen from '../components/LoadingScreen';
+import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
   "Initializing system protocols...",
@@ -14,20 +15,47 @@ const loadingStatements = [
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentStatement, setCurrentStatement] = useState(0);
+  const [transcription, setTranscription] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // Simulating a 3-second loading time
+    }, 3000);
 
     const statementInterval = setInterval(() => {
       setCurrentStatement((prev) => (prev + 1) % loadingStatements.length);
-    }, 3000); // Change statement every 3 seconds
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
       clearInterval(statementInterval);
     };
+  }, []);
+
+  useEffect(() => {
+    const deepgramApiKey = import.meta.env.VITE_DEEPGRAM_API_KEY;
+
+    if (!deepgramApiKey) {
+      setError('Deepgram API key is not set. Please check your environment variables.');
+      return;
+    }
+
+    const deepgram = createClient(deepgramApiKey);
+
+    const fetchTranscription = async () => {
+      try {
+        const { result } = await deepgram.listen.prerecorded.transcribeUrl({
+          url: 'https://static.deepgram.com/examples/Bueller-Life-moves-pretty-fast.wav',
+        });
+        setTranscription(result.channels[0].alternatives[0].transcript);
+      } catch (err) {
+        console.error('Error fetching transcription:', err);
+        setError('Failed to fetch transcription. Please try again later.');
+      }
+    };
+
+    fetchTranscription();
   }, []);
 
   if (isLoading) {
@@ -59,6 +87,25 @@ const Index = () => {
             {loadingStatements[currentStatement]}
           </motion.div>
         </AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-4 text-red-300 text-sm"
+          >
+            {error}
+          </motion.div>
+        )}
+        {transcription && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-4 text-[#ffd0a8] text-sm max-w-md"
+          >
+            <h3 className="font-bold mb-2">Transcription:</h3>
+            <p>{transcription}</p>
+          </motion.div>
+        )}
       </div>
     </div>
   );
