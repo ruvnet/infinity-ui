@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
-import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics, Communications } from './ModalContent';
+import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics } from './ModalContent';
+import { Communications } from './Communications';
 
 const getRandomPrediction = () => {
   const predictions = [
