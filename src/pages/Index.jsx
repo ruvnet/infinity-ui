@@ -19,8 +19,16 @@ const Index = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#c34524] text-[#ffd0a8]">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your App</h1>
-        <p className="text-xl">Start building your amazing project here!</p>
+        <dotlottie-player
+          src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
+          background="transparent"
+          speed="1"
+          style={{ width: '300px', height: '300px' }}
+          direction="-1"
+          playMode="normal"
+          loop
+          autoplay
+        ></dotlottie-player>
       </div>
     </div>
   );
