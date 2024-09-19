@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Radio, Brain, Atom, Clock, Activity, Settings } from 'lucide-react';
 import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics } from './ModalContent';
 import { Communications } from './Communications';
@@ -43,39 +43,51 @@ const Modal = ({ title, onClose }) => {
     if (title === 'Communications') {
       return 'w-11/12 max-w-4xl';
     } else {
-      return 'w-11/12 max-w-md';
+      return 'w-11/12 max-w-sm';
     }
   };
 
+  const flickerAnimation = {
+    initial: { opacity: 0 },
+    animate: { 
+      opacity: [0, 1, 0.5, 1, 0.8, 1],
+      transition: { 
+        duration: 0.3,
+        times: [0, 0.2, 0.4, 0.6, 0.8, 1]
+      }
+    },
+    exit: { opacity: 0 }
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      onClick={onClose}
-    >
+    <AnimatePresence>
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className={`bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] ${getModalWidth()}`}
-        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        onClick={onClose}
       >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-[#ffd0a8] text-xl font-semibold flex items-center">
-            {IconComponent && <IconComponent className="mr-2 h-6 w-6" />}
-            {title}
-          </h2>
-          <button onClick={onClose} className="text-[#ffd0a8] hover:text-white transition-colors">
-            <X size={24} />
-          </button>
-        </div>
-        <div className="text-[#ffd0a8] space-y-4">
-          {getModalContent()}
-        </div>
+        <motion.div
+          {...flickerAnimation}
+          className={`bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] ${getModalWidth()}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-[#ffd0a8] text-xl font-semibold flex items-center">
+              {IconComponent && <IconComponent className="mr-2 h-6 w-6" />}
+              {title}
+            </h2>
+            <button onClick={onClose} className="text-[#ffd0a8] hover:text-white transition-colors">
+              <X size={24} />
+            </button>
+          </div>
+          <div className="text-[#ffd0a8] space-y-4">
+            {getModalContent()}
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   );
 };
 
