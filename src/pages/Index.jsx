@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingScreen from '../components/LoadingScreen';
 import HamburgerMenu from '../components/HamburgerMenu';
+import SystemStatusConsole from '../components/SystemStatusConsole';
 import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
@@ -20,14 +21,10 @@ const Index = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
+    const timer = setTimeout(() => setIsLoading(false), 3000);
     const statementInterval = setInterval(() => {
       setCurrentStatement((prev) => (prev + 1) % loadingStatements.length);
     }, 3000);
-
     return () => {
       clearTimeout(timer);
       clearInterval(statementInterval);
@@ -36,14 +33,11 @@ const Index = () => {
 
   useEffect(() => {
     const deepgramApiKey = import.meta.env.VITE_DEEPGRAM_API_KEY;
-
     if (!deepgramApiKey) {
       setError('Deepgram API key not found. Neural interface compromised.');
       return;
     }
-
     const deepgram = createClient(deepgramApiKey);
-
     const fetchTranscription = async () => {
       try {
         const { result } = await deepgram.listen.prerecorded.transcribeUrl({
@@ -55,16 +49,14 @@ const Index = () => {
         setError('Quantum fluctuation detected. Transcription matrix unstable.');
       }
     };
-
     fetchTranscription();
   }, []);
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative">
+      <SystemStatusConsole />
       <div className="absolute top-4 right-4">
         <HamburgerMenu />
       </div>
