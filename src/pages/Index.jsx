@@ -35,7 +35,7 @@ const Index = () => {
       <div className="absolute top-4 left-4 w-[calc(100%-2rem)] sm:w-56 md:w-64">
         <SystemStatusConsole />
       </div>
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 z-50">
         <HamburgerMenu />
       </div>
       <div className="text-center flex flex-col items-center mt-24 md:mt-0">
