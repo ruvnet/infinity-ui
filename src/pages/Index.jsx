@@ -55,7 +55,7 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="mt-8 text-2xl font-mono tracking-wider"
+          className="mt-4 text-lg font-mono tracking-wider max-w-md text-center"
         >
           {loadingStatements[currentStatement]}
         </motion.div>
