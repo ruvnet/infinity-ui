@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Inbox, Send, Star, AlertTriangle, Trash2, ChevronLeft, Menu } from 'lucide-react';
+import { Inbox, Send, Star, AlertTriangle, Trash2, ChevronLeft, Menu, X } from 'lucide-react';
 
-const MobileCommunications = () => {
+const MobileCommunications = ({ onClose }) => {
   const [activeView, setActiveView] = useState('inbox');
   const [selectedMessage, setSelectedMessage] = useState(null);
 
@@ -25,13 +25,13 @@ const MobileCommunications = () => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      className="bg-[#b73616] h-full"
+      className="bg-[#b73616] h-full rounded-lg overflow-hidden"
     >
       {folders.map((folder) => (
         <button
           key={folder.name}
           onClick={() => setActiveView(folder.name)}
-          className="w-full text-left p-4 border-b border-[#ffd0a8]/20 flex items-center space-x-3"
+          className="w-full text-left p-4 border-b border-[#ffd0a8]/20 flex items-center space-x-3 hover:bg-[#ffd0a8]/10 transition-colors"
         >
           <folder.icon size={20} className="text-[#ffd0a8]" />
           <span className="text-[#ffd0a8]">{folder.label}</span>
@@ -45,7 +45,7 @@ const MobileCommunications = () => {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
-      className="bg-[#b73616] h-full"
+      className="bg-[#b73616] h-full rounded-lg overflow-hidden"
     >
       <div className="flex items-center justify-between p-4 border-b border-[#ffd0a8]/20">
         <button onClick={() => setActiveView('folders')} className="text-[#ffd0a8]">
@@ -58,7 +58,7 @@ const MobileCommunications = () => {
         <button
           key={message.id}
           onClick={() => setSelectedMessage(message)}
-          className="w-full text-left p-4 border-b border-[#ffd0a8]/20"
+          className="w-full text-left p-4 border-b border-[#ffd0a8]/20 hover:bg-[#ffd0a8]/10 transition-colors"
         >
           <div className="font-semibold text-[#ffd0a8]">{message.from}</div>
           <div className="text-[#ffd0a8]/80">{message.subject}</div>
@@ -72,7 +72,7 @@ const MobileCommunications = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      className="bg-[#b73616] h-full flex flex-col"
+      className="bg-[#b73616] h-full flex flex-col rounded-lg overflow-hidden"
     >
       <div className="flex items-center p-4 border-b border-[#ffd0a8]/20">
         <button onClick={() => setSelectedMessage(null)} className="text-[#ffd0a8] mr-4">
@@ -90,7 +90,10 @@ const MobileCommunications = () => {
   );
 
   return (
-    <div className="h-full bg-[#b73616] text-[#ffd0a8]">
+    <div className="h-[80vh] w-[90vw] max-w-md bg-[#b73616] text-[#ffd0a8] rounded-lg overflow-hidden relative">
+      <button onClick={onClose} className="absolute top-2 right-2 text-[#ffd0a8] hover:text-white transition-colors z-10">
+        <X size={24} />
+      </button>
       {activeView === 'folders' && renderFolderList()}
       {activeView !== 'folders' && !selectedMessage && renderMessageList()}
       {selectedMessage && renderMessageContent()}

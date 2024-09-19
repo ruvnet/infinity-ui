@@ -22,7 +22,7 @@ const Modal = ({ title, onClose }) => {
   const getModalContent = () => {
     switch (title) {
       case 'Communications':
-        return window.innerWidth < 768 ? <MobileCommunications /> : <Communications />;
+        return window.innerWidth < 768 ? <MobileCommunications onClose={onClose} /> : <Communications />;
       case 'Neural Interface':
         return <NeuralInterface />;
       case 'Quantum Predictions':
@@ -43,10 +43,8 @@ const Modal = ({ title, onClose }) => {
   const getModalWidth = () => {
     if (title === 'Communications' && window.innerWidth >= 768) {
       return 'w-11/12 max-w-4xl';
-    } else if (title === 'Communications' && window.innerWidth < 768) {
-      return 'w-full h-full';
     } else {
-      return 'w-11/12 max-w-xs';
+      return 'w-auto';
     }
   };
 
