@@ -39,6 +39,14 @@ const Modal = ({ title, onClose }) => {
 
   const IconComponent = getModalIcon(title);
 
+  const getModalWidth = () => {
+    if (title === 'Communications') {
+      return 'w-11/12 max-w-4xl';
+    } else {
+      return 'w-11/12 max-w-md';
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -51,7 +59,7 @@ const Modal = ({ title, onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] w-11/12 max-w-4xl"
+        className={`bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] ${getModalWidth()}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
