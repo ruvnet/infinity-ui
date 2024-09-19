@@ -23,7 +23,7 @@ const Index = () => {
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"
           speed="1"
-          style={{ width: '300px', height: '300px' }}
+          style={{ width: '500px', height: '500px' }}
           direction="-1"
           playMode="normal"
           loop
