@@ -7,11 +7,6 @@ const sciFiMessages = [
   { id: 3, from: 'Time Patrol', subject: 'Temporal Incursion Alert', read: false, content: 'Multiple timeline alterations detected in the Centauri system. Chrono-agents are being dispatched to stabilize the temporal flux. All time-sensitive operations in the affected area must cease immediately.' },
   { id: 4, from: 'Xenobiology Lab', subject: 'New Lifeform Discovery', read: true, content: 'Expedition team on exoplanet KOI-4878b has encountered a silicon-based lifeform exhibiting signs of collective intelligence. Preliminary scans indicate potential for advanced communication. Awaiting first contact protocols.' },
   { id: 5, from: 'Starship Nexus', subject: 'Warp Core Upgrade Available', read: false, content: 'The latest quantum singularity drive is now available for installation. This upgrade promises a 15% increase in warp speed capabilities and a 30% reduction in tachyon emissions. Schedule your starship for refit at your earliest convenience.' },
-  { id: 6, from: 'Interstellar Trade Federation', subject: 'Market Alert: Dilithium Crystal Shortage', read: false, content: 'Recent supernova activity in the Mutara Nebula has disrupted dilithium mining operations. Expect a 300% price increase in the next solar cycle. Consider alternative energy sources for non-critical systems.' },
-  { id: 7, from: 'Psionic Research Institute', subject: 'Breakthrough in Telepathic Encryption', read: true, content: 'Our team has successfully developed a method to encrypt data using psionic wavelengths. This technology promises unbreakable communication channels. Volunteers needed for beta testing. Warning: May cause mild headaches and temporary telepathic sensitivity.' },
-  { id: 8, from: 'Galactic Archives', subject: 'Ancient Artifact Discovered', read: false, content: 'Archaeologists on Zeta Reticuli IV have unearthed a device of unknown origin. Preliminary scans suggest it may be a map to a long-lost civilization. All qualified xenoarchaeologists are requested to join the research team immediately.' },
-  { id: 9, from: 'Cybernetic Enhancements Corp', subject: 'Recall Notice: Neural Implant Series X-1000', read: true, content: 'A critical bug has been detected in the X-1000 series neural implants. Users may experience unintended synaptic connections and spontaneous knowledge downloads. Please schedule an appointment for an immediate firmware update.' },
-  { id: 10, from: 'Planetary Defense Network', subject: 'Simulation Results: Asteroid Deflection', read: false, content: 'Recent simulations of our planetary defense systems show a 12% failure rate in deflecting extinction-level asteroid impacts. Proposal to upgrade to quantum-guided missile systems is pending approval. Your vote is required within 48 hours.' },
 ];
 
 const sentMessages = [
@@ -28,11 +23,6 @@ const starredMessages = [
 const criticalMessages = [
   { id: 16, from: 'Planetary Defense Network', subject: 'URGENT: Incoming Asteroid Swarm', read: false, content: 'Multiple extinction-level asteroids detected on collision course. Planetary shield activation required immediately. This is not a drill.' },
   { id: 17, from: 'Quantum Containment Facility', subject: 'CRITICAL: Antimatter Leak Detected', read: false, content: 'Containment breach in Sector 31. Antimatter leak spreading. Evacuation of all non-essential personnel required. Quantum stabilizers at critical levels.' },
-];
-
-const trashedMessages = [
-  { id: 18, from: 'Galactic Spam Corp', subject: 'Enlarge Your Tentacles Now!', read: true, content: 'Are your tentacles not tentacle-y enough? Try our new quantum enlargement ray! Guaranteed results or your money back!' },
-  { id: 19, from: 'Nigerian Space Prince', subject: 'Urgent Business Proposal', read: true, content: 'Greetings, I am Prince Zorg of the Andromeda Royal Family. I require your assistance in transferring 10 billion credits...' },
 ];
 
 const sciFiRecipients = [
@@ -52,26 +42,68 @@ export const Communications = () => {
   const [activeFolder, setActiveFolder] = useState('inbox');
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showNewMessage, setShowNewMessage] = useState(false);
-
-  const folders = [
+  const [folders, setFolders] = useState([
     { name: 'inbox', icon: Inbox, label: 'Quantum Inbox', messages: sciFiMessages },
     { name: 'sent', icon: Send, label: 'Subspace Sent', messages: sentMessages },
     { name: 'starred', icon: Star, label: 'Stellar Favorites', messages: starredMessages },
     { name: 'important', icon: AlertTriangle, label: 'Critical Transmissions', messages: criticalMessages },
-    { name: 'trash', icon: Trash2, label: 'Void Disposal', messages: trashedMessages },
-  ];
+    { name: 'trash', icon: Trash2, label: 'Void Disposal', messages: [] },
+  ]);
 
   const currentFolder = folders.find(folder => folder.name === activeFolder);
 
   const handleDelete = (messageId) => {
-    const updatedMessages = currentFolder.messages.filter(message => message.id !== messageId);
-    currentFolder.messages = updatedMessages;
+    const updatedFolders = folders.map(folder => {
+      if (folder.name === activeFolder) {
+        const messageToDelete = folder.messages.find(msg => msg.id === messageId);
+        const updatedMessages = folder.messages.filter(msg => msg.id !== messageId);
+        return { ...folder, messages: updatedMessages };
+      } else if (folder.name === 'trash') {
+        return { ...folder, messages: [...folder.messages, folders.find(f => f.name === activeFolder).messages.find(msg => msg.id === messageId)] };
+      }
+      return folder;
+    });
+    setFolders(updatedFolders);
     setSelectedMessage(null);
   };
 
   const handleReply = (message) => {
+    const newMessage = {
+      id: Date.now(),
+      from: 'You',
+      to: message.from,
+      subject: `RE: ${message.subject}`,
+      content: `Replying to: "${message.content}"\n\nYour reply here...`,
+      read: true
+    };
+    const updatedFolders = folders.map(folder => {
+      if (folder.name === 'inbox') {
+        return { ...folder, messages: [newMessage, ...folder.messages] };
+      }
+      return folder;
+    });
+    setFolders(updatedFolders);
     setShowNewMessage(true);
-    // Pre-fill the reply form (you can expand this functionality as needed)
+    setSelectedMessage(newMessage);
+  };
+
+  const handleSendMessage = (to, subject, content) => {
+    const newMessage = {
+      id: Date.now(),
+      from: 'You',
+      to,
+      subject,
+      content,
+      read: true
+    };
+    const updatedFolders = folders.map(folder => {
+      if (folder.name === 'sent') {
+        return { ...folder, messages: [newMessage, ...folder.messages] };
+      }
+      return folder;
+    });
+    setFolders(updatedFolders);
+    setShowNewMessage(false);
   };
 
   return (
@@ -171,8 +203,10 @@ export const Communications = () => {
               </button>
               <button
                 onClick={() => {
-                  // Here you would typically send the message
-                  setShowNewMessage(false);
+                  const to = document.querySelector('select').value;
+                  const subject = document.querySelector('input[type="text"]').value;
+                  const content = document.querySelector('textarea').value;
+                  handleSendMessage(to, subject, content);
                 }}
                 className="bg-[#ffd0a8] text-[#b73616] px-4 py-2 rounded"
               >
