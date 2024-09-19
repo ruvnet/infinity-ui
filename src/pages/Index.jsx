@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LoadingScreen from '../components/LoadingScreen';
 import HamburgerMenu from '../components/HamburgerMenu';
 import SystemStatusConsole from '../components/SystemStatusConsole';
-import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
   "Initializing quantum neural networks...",
@@ -17,8 +16,6 @@ const loadingStatements = [
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentStatement, setCurrentStatement] = useState(0);
-  const [transcription, setTranscription] = useState('');
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3000);
@@ -31,32 +28,13 @@ const Index = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const deepgramApiKey = import.meta.env.VITE_DEEPGRAM_API_KEY;
-    if (!deepgramApiKey) {
-      setError('Deepgram API key not found. Neural interface compromised.');
-      return;
-    }
-    const deepgram = createClient(deepgramApiKey);
-    const fetchTranscription = async () => {
-      try {
-        const { result } = await deepgram.listen.prerecorded.transcribeUrl({
-          url: 'https://static.deepgram.com/examples/Bueller-Life-moves-pretty-fast.wav',
-        });
-        setTranscription(result.channels[0].alternatives[0].transcript);
-      } catch (err) {
-        console.error('Error fetching transcription:', err);
-        setError('Quantum fluctuation detected. Transcription matrix unstable.');
-      }
-    };
-    fetchTranscription();
-  }, []);
-
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative">
-      <SystemStatusConsole />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4 md:p-0">
+      <div className="absolute top-4 left-4 md:block hidden">
+        <SystemStatusConsole />
+      </div>
       <div className="absolute top-4 right-4">
         <HamburgerMenu />
       </div>
@@ -65,7 +43,7 @@ const Index = () => {
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"
           speed="1"
-          style={{ width: '500px', height: '500px' }}
+          style={{ width: '100%', maxWidth: '500px', height: 'auto' }}
           direction="-1"
           playMode="normal"
           loop
@@ -78,30 +56,11 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="mt-2 text-lg font-mono tracking-wider max-w-md text-center"
+            className="mt-2 text-sm md:text-lg font-mono tracking-wider max-w-md text-center"
           >
             {loadingStatements[currentStatement]}
           </motion.div>
         </AnimatePresence>
-        {error && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-4 text-red-300 text-sm"
-          >
-            {error}
-          </motion.div>
-        )}
-        {transcription && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-4 text-[#ffd0a8] text-sm max-w-md"
-          >
-            <h3 className="font-bold mb-2">Quantum Transcription Matrix:</h3>
-            <p>{transcription}</p>
-          </motion.div>
-        )}
       </div>
     </div>
   );
