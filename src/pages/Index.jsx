@@ -55,17 +55,19 @@ const Index = () => {
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative">
-      <SystemStatusConsole />
-      <div className="absolute top-4 right-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4 md:p-0">
+      <div className="absolute top-4 left-4 md:static md:mb-4">
+        <SystemStatusConsole />
+      </div>
+      <div className="absolute top-4 right-4 md:static md:mt-4">
         <HamburgerMenu />
       </div>
-      <div className="text-center flex flex-col items-center">
+      <div className="text-center flex flex-col items-center mt-16 md:mt-0">
         <dotlottie-player
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"
           speed="1"
-          style={{ width: '500px', height: '500px' }}
+          style={{ width: '100%', maxWidth: '500px', height: 'auto' }}
           direction="-1"
           playMode="normal"
           loop
@@ -78,7 +80,7 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="mt-2 text-lg font-mono tracking-wider max-w-md text-center"
+            className="mt-2 text-sm md:text-lg font-mono tracking-wider max-w-md text-center px-4"
           >
             {loadingStatements[currentStatement]}
           </motion.div>
@@ -87,7 +89,7 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-4 text-red-300 text-sm"
+            className="mt-4 text-red-300 text-xs md:text-sm"
           >
             {error}
           </motion.div>
@@ -96,7 +98,7 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-4 text-[#ffd0a8] text-sm max-w-md"
+            className="mt-4 text-[#ffd0a8] text-xs md:text-sm max-w-md px-4"
           >
             <h3 className="font-bold mb-2">Quantum Transcription Matrix:</h3>
             <p>{transcription}</p>
