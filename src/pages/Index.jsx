@@ -36,7 +36,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8]">
-      <div className="text-center">
+      <div className="text-center flex flex-col items-center">
         <dotlottie-player
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"
@@ -47,19 +47,19 @@ const Index = () => {
           loop
           autoplay
         ></dotlottie-player>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStatement}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="mt-2 text-lg font-mono tracking-wider max-w-md text-center"
+          >
+            {loadingStatements[currentStatement]}
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentStatement}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-          className="mt-4 text-lg font-mono tracking-wider max-w-md text-center"
-        >
-          {loadingStatements[currentStatement]}
-        </motion.div>
-      </AnimatePresence>
     </div>
   );
 };
