@@ -31,6 +31,7 @@ const Modal = ({ title, onClose }) => {
           <div className="space-y-4">
             <TypewriterText text="Synaptic Link Established" />
             <TypewriterText text="Cognitive Enhancement: Active" />
+            <TypewriterText text="Neural Pathways: Optimized" />
             <div className="grid grid-cols-3 gap-2">
               {['Alpha', 'Beta', 'Gamma', 'Delta', 'Theta', 'Epsilon'].map((wave) => (
                 <div key={wave} className="h-8 bg-[#f8d2ad] opacity-20 rounded flex items-center justify-center">
@@ -38,6 +39,9 @@ const Modal = ({ title, onClose }) => {
                 </div>
               ))}
             </div>
+            <TypewriterText text="Thought Amplification: 300%" />
+            <TypewriterText text="Memory Recall: Enhanced" />
+            <TypewriterText text="Subconscious Integration: In Progress" />
           </div>
         );
       case 'Quantum Predictions':
@@ -57,6 +61,10 @@ const Modal = ({ title, onClose }) => {
             <div className="h-32 bg-[#f8d2ad] opacity-20 rounded flex items-center justify-center">
               <TypewriterText text="Probability Matrix Calculating..." />
             </div>
+            <TypewriterText text="Quantum Entanglement: Stable" />
+            <TypewriterText text="Timeline Divergence: 17.3%" />
+            <TypewriterText text="Parallel Universes Analyzed: 1,287" />
+            <TypewriterText text="Causality Loops Detected: 3" />
           </div>
         );
       case 'Temporal Anomalies':
@@ -74,12 +82,15 @@ const Modal = ({ title, onClose }) => {
             </div>
             <div className="flex justify-between">
               <div className="w-1/2 h-8 bg-[#f8d2ad] opacity-50 rounded flex items-center justify-center">
-                <TypewriterText text="Paradox Risk: Low" />
+                <TypewriterText text="Paradox Risk: Moderate" />
               </div>
               <div className="w-1/3 h-8 bg-[#f8d2ad] opacity-50 rounded flex items-center justify-center">
                 <TypewriterText text="Stabilizing..." />
               </div>
             </div>
+            <TypewriterText text="Chrono-particles Detected: 1.8M" />
+            <TypewriterText text="Time Dilation Factor: x2.7" />
+            <TypewriterText text="Temporal Echoes: 5" />
           </div>
         );
       case 'System Diagnostics':
@@ -98,6 +109,10 @@ const Modal = ({ title, onClose }) => {
             <div className="h-8 bg-[#f8d2ad] opacity-40 rounded flex items-center justify-center">
               <TypewriterText text="All Systems Nominal" />
             </div>
+            <TypewriterText text="Firewall Integrity: 99.9%" />
+            <TypewriterText text="Quantum Encryption: Active" />
+            <TypewriterText text="Self-Repair Protocols: Engaged" />
+            <TypewriterText text="System Uptime: 7,345 days" />
           </div>
         );
       default:
