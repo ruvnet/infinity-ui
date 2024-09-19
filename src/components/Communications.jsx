@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Inbox, Send, Plus, Star, AlertTriangle, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Inbox, Send, Plus, Star, AlertTriangle, Trash2, Reply, X } from 'lucide-react';
 
 const sciFiMessages = [
   { id: 1, from: 'Galactic Council', subject: 'Urgent: Hyperspace Lane Closure', read: false, content: 'Due to unexpected quantum fluctuations, the Orion-Cygnus hyperspace lane will be closed for the next 72 standard hours. All interstellar traffic must reroute through the Sagittarius bypass. Expect delays and increased fuel consumption.' },
@@ -52,6 +52,16 @@ export const Communications = () => {
   const [activeFolder, setActiveFolder] = useState('inbox');
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showNewMessage, setShowNewMessage] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const folders = [
     { name: 'inbox', icon: Inbox, label: 'Quantum Inbox', messages: sciFiMessages },
@@ -63,10 +73,21 @@ export const Communications = () => {
 
   const currentFolder = folders.find(folder => folder.name === activeFolder);
 
-  return (
-    <div className="flex h-[70vh]">
+  const handleDelete = (messageId) => {
+    const updatedMessages = currentFolder.messages.filter(msg => msg.id !== messageId);
+    currentFolder.messages = updatedMessages;
+    setSelectedMessage(null);
+  };
+
+  const handleReply = (message) => {
+    setShowNewMessage(true);
+    // Pre-fill the reply form (you can expand on this functionality)
+  };
+
+  const DesktopLayout = () => (
+    <div className="flex h-[80vh] w-[90vw]">
       {/* Left sidebar */}
-      <div className="w-1/4 bg-[#b73616]/30 p-4 rounded-l-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
+      <div className="w-1/5 bg-[#b73616]/30 p-4 rounded-l-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
         <button
           onClick={() => setShowNewMessage(true)}
           className="w-full bg-[#ffd0a8] text-[#b73616] rounded-md py-2 mb-4 flex items-center justify-center"
@@ -97,18 +118,24 @@ export const Communications = () => {
           <div
             key={message.id}
             onClick={() => setSelectedMessage(message)}
-            className={`p-2 mb-2 rounded-md cursor-pointer ${
+            className={`p-2 mb-2 rounded-md cursor-pointer flex justify-between items-center ${
               message === selectedMessage ? 'bg-[#ffd0a8]/20' : ''
             }`}
           >
-            <div className="font-bold">{message.from || message.to}</div>
-            <div className="text-sm opacity-70">{message.subject}</div>
+            <div>
+              <div className="font-bold">{message.from || message.to}</div>
+              <div className="text-sm opacity-70">{message.subject}</div>
+            </div>
+            <div className="flex space-x-2">
+              <Reply size={16} onClick={(e) => { e.stopPropagation(); handleReply(message); }} className="cursor-pointer hover:text-[#ffd0a8]" />
+              <Trash2 size={16} onClick={(e) => { e.stopPropagation(); handleDelete(message.id); }} className="cursor-pointer hover:text-[#ffd0a8]" />
+            </div>
           </div>
         ))}
       </div>
 
       {/* Message content */}
-      <div className="w-5/12 bg-[#b73616]/10 p-4 rounded-r-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
+      <div className="w-7/15 bg-[#b73616]/10 p-4 rounded-r-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
         {selectedMessage ? (
           <div>
             <h3 className="text-xl font-bold mb-2">{selectedMessage.subject}</h3>
@@ -120,6 +147,68 @@ export const Communications = () => {
             Select a transmission to view its contents
           </div>
         )}
+      </div>
+    </div>
+  );
+
+  const MobileLayout = () => (
+    <div className="flex flex-col h-[80vh] w-[90vw]">
+      {/* Top navigation */}
+      <div className="bg-[#b73616]/30 p-4 flex justify-between items-center">
+        <button onClick={() => setShowNewMessage(true)} className="bg-[#ffd0a8] text-[#b73616] rounded-md py-2 px-4">
+          <Plus size={16} />
+        </button>
+        <select 
+          value={activeFolder}
+          onChange={(e) => {
+            setActiveFolder(e.target.value);
+            setSelectedMessage(null);
+          }}
+          className="bg-[#b73616] text-[#ffd0a8] border border-[#ffd0a8] rounded p-2"
+        >
+          {folders.map((folder) => (
+            <option key={folder.name} value={folder.name}>{folder.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Message list or content */}
+      <div className="flex-grow bg-[#b73616]/20 p-4 overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
+        {selectedMessage ? (
+          <div>
+            <button onClick={() => setSelectedMessage(null)} className="mb-4 text-[#ffd0a8]">
+              <X size={16} className="inline mr-2" /> Back to list
+            </button>
+            <h3 className="text-xl font-bold mb-2">{selectedMessage.subject}</h3>
+            <p className="mb-4">{selectedMessage.from ? `From: ${selectedMessage.from}` : `To: ${selectedMessage.to}`}</p>
+            <p>{selectedMessage.content}</p>
+          </div>
+        ) : (
+          currentFolder.messages.map((message) => (
+            <div
+              key={message.id}
+              onClick={() => setSelectedMessage(message)}
+              className="p-2 mb-2 rounded-md cursor-pointer flex justify-between items-center"
+            >
+              <div>
+                <div className="font-bold">{message.from || message.to}</div>
+                <div className="text-sm opacity-70">{message.subject}</div>
+              </div>
+              <div className="flex space-x-2">
+                <Reply size={16} onClick={(e) => { e.stopPropagation(); handleReply(message); }} className="cursor-pointer hover:text-[#ffd0a8]" />
+                <Trash2 size={16} onClick={(e) => { e.stopPropagation(); handleDelete(message.id); }} className="cursor-pointer hover:text-[#ffd0a8]" />
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-[#b73616]/90 flex items-center justify-center fixed inset-0 z-50">
+      <div className="bg-[#b73616] rounded-lg">
+        {isMobile ? <MobileLayout /> : <DesktopLayout />}
       </div>
 
       {/* New message form */}
