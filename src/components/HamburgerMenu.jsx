@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Brain, Atom, Clock, Activity, Radio, Settings } from 'lucide-react';
+import { Menu, X, Brain, Atom, Clock, Activity, Radio, Settings, Copyright } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
 
@@ -70,7 +70,11 @@ const HamburgerMenu = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              System Status: Online
+              <div>System Status: Online</div>
+              <div className="flex items-center text-xs mt-1 opacity-70">
+                <Copyright size={10} className="mr-1" />
+                created by rUv, no rights reserved
+              </div>
             </motion.div>
           </motion.div>
         )}
