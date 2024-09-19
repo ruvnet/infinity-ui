@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu, X, Brain, Atom, Clock, Activity, Radio, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
 
-const HamburgerMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeModal, setActiveModal] = useState(null);
+const HamburgerMenu = ({ isOpen, toggleMenu }) => {
+  const [activeModal, setActiveModal] = React.useState(null);
 
   const menuItems = [
     { name: "Communications", icon: Radio },
@@ -18,12 +17,12 @@ const HamburgerMenu = () => {
 
   const handleItemClick = (itemName) => {
     setActiveModal(itemName);
-    setIsOpen(false);
+    toggleMenu();
   };
 
   return (
     <>
-      <button onClick={() => setIsOpen(!isOpen)} className="text-[#ffd0a8] z-50 relative">
+      <button onClick={toggleMenu} className="text-[#ffd0a8] z-50 relative">
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <AnimatePresence>
