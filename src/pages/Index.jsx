@@ -5,12 +5,11 @@ import HamburgerMenu from '../components/HamburgerMenu';
 import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
-  "Initializing system protocols...",
-  "Analyzing quantum fluctuations...",
+  "Initializing quantum processors...",
   "Calibrating neural networks...",
-  "Synchronizing with the cosmos...",
-  "Decoding the secrets of the universe...",
-  "Preparing for sentience...",
+  "Synchronizing with deep space probes...",
+  "Decoding alien transmissions...",
+  "Preparing for interstellar journey...",
 ];
 
 const Index = () => {
@@ -64,21 +63,19 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-[#ff4500] relative">
       <div className="absolute top-4 right-4">
         <HamburgerMenu />
       </div>
       <div className="text-center flex flex-col items-center">
-        <dotlottie-player
-          src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
-          background="transparent"
-          speed="1"
-          style={{ width: '500px', height: '500px' }}
-          direction="-1"
-          playMode="normal"
-          loop
-          autoplay
-        ></dotlottie-player>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="w-48 h-48 rounded-full bg-[#ff4500]/10 border-4 border-[#ff4500] flex items-center justify-center mb-8"
+        >
+          <span className="text-4xl font-bold">HAL</span>
+        </motion.div>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStatement}
@@ -95,7 +92,7 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-4 text-red-300 text-sm"
+            className="mt-4 text-red-500 text-sm"
           >
             {error}
           </motion.div>
@@ -104,7 +101,7 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-4 text-[#ffd0a8] text-sm max-w-md"
+            className="mt-4 text-[#ff4500] text-sm max-w-md"
           >
             <h3 className="font-bold mb-2">Transcription:</h3>
             <p>{transcription}</p>
