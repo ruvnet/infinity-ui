@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass } from 'lucide-react';
-import { DashboardItem, ProgressBar, PredictionDisplay } from './ModalComponents';
+import { Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass, Clock, AlertTriangle, Zap as ZapIcon, Refresh } from 'lucide-react';
+import { DashboardItem, ProgressBar, PredictionDisplay, FlashingText } from './ModalComponents';
 
 export const NeuralInterface = () => (
   <div className="space-y-4">
@@ -58,30 +58,49 @@ export const QuantumPredictions = ({ getRandomPrediction }) => {
   );
 };
 
-export const TemporalAnomalies = () => (
-  <div className="space-y-4">
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Temporal Flux</div>
-      <div>Detected</div>
+const getRandomTemporalAnomaly = () => {
+  const anomalies = [
+    "Chronal displacement detected in sector 9",
+    "Temporal rift forming in the Andromeda galaxy",
+    "Time dilation effect increasing near black hole XJ-2481",
+    "Paradox alert: future self encountered in past timeline",
+    "Temporal echoes from the Big Bang intensifying",
+    "Quantum tunneling event bridging parallel timelines",
+    "Causality violation detected in the Crab Nebula",
+    "Time crystal formation observed in deep space",
+    "Temporal storm approaching from the galactic core",
+    "Chronoton particle surge in the Oort cloud"
+  ];
+  return anomalies[Math.floor(Math.random() * anomalies.length)];
+};
+
+export const TemporalAnomalies = () => {
+  const [currentAnomaly, setCurrentAnomaly] = useState(getRandomTemporalAnomaly());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentAnomaly(getRandomTemporalAnomaly());
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <DashboardItem icon={Clock} label="Temporal Flux" value="Detected" />
+        <DashboardItem icon={AlertTriangle} label="Paradox Risk" value="Moderate" />
+        <DashboardItem icon={ZapIcon} label="Chrono-particles" value="1.8M" />
+        <DashboardItem icon={Refresh} label="Time Dilation" value="x2.7" />
+      </div>
+      <ProgressBar label="Timeline Stability" value={68} max={100} />
+      <ProgressBar label="Temporal Shield Integrity" value={85} max={100} />
+      <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
+        <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Current Temporal Anomaly</div>
+        <FlashingText text={currentAnomaly} />
+      </div>
     </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Paradox Risk</div>
-      <div>Moderate</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Chrono-particles Detected</div>
-      <div>1.8M</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Time Dilation Factor</div>
-      <div>x2.7</div>
-    </div>
-    <div className="text-[#ffd0a8] text-sm">
-      <div className="opacity-70 mb-1">Temporal Echoes</div>
-      <div>5</div>
-    </div>
-  </div>
-);
+  );
+};
 
 export const SystemDiagnostics = () => (
   <div className="space-y-4">

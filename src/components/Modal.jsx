@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { X, Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass } from 'lucide-react';
-import { DashboardItem, ProgressBar, PredictionDisplay } from './ModalComponents';
+import { X } from 'lucide-react';
 import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics } from './ModalContent';
 
 const getRandomPrediction = () => {

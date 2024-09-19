@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export const DashboardItem = ({ icon: Icon, label, value }) => (
@@ -42,3 +42,23 @@ export const PredictionDisplay = ({ label, prediction }) => (
     </div>
   </motion.div>
 );
+
+export const FlashingText = ({ text }) => {
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    setKey((prevKey) => prevKey + 1);
+  }, [text]);
+
+  return (
+    <motion.div
+      key={key}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="text-[#ffd0a8] text-sm font-mono"
+    >
+      {text}
+    </motion.div>
+  );
+};
