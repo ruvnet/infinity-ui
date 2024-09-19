@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
-import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics } from './ModalContent';
+import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics, Communications } from './ModalContent';
 
 const getRandomPrediction = () => {
   const predictions = [
@@ -22,6 +22,8 @@ const getRandomPrediction = () => {
 const Modal = ({ title, onClose }) => {
   const getModalContent = () => {
     switch (title) {
+      case 'Communications':
+        return <Communications />;
       case 'Neural Interface':
         return <NeuralInterface />;
       case 'Quantum Predictions':

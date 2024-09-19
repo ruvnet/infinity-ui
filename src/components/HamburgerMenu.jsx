@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Brain, Atom, Clock, Activity } from 'lucide-react';
+import { Menu, X, Brain, Atom, Clock, Activity, Radio } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
 
@@ -8,6 +8,7 @@ const HamburgerMenu = () => {
   const [activeModal, setActiveModal] = useState(null);
 
   const menuItems = [
+    { name: "Communications", icon: Radio },
     { name: "Neural Interface", icon: Brain },
     { name: "Quantum Predictions", icon: Atom },
     { name: "Temporal Anomalies", icon: Clock },
