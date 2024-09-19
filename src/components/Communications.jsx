@@ -14,6 +14,27 @@ const sciFiMessages = [
   { id: 10, from: 'Planetary Defense Network', subject: 'Simulation Results: Asteroid Deflection', read: false, content: 'Recent simulations of our planetary defense systems show a 12% failure rate in deflecting extinction-level asteroid impacts. Proposal to upgrade to quantum-guided missile systems is pending approval. Your vote is required within 48 hours.' },
 ];
 
+const sentMessages = [
+  { id: 11, to: 'Galactic Council', subject: 'Re: Hyperspace Lane Closure', content: 'Acknowledged. Rerouting all scheduled transports. Requesting additional fuel allocation for extended journeys.' },
+  { id: 12, to: 'Quantum AI', subject: 'Authorization for Sector 7G Investigation', content: 'Permission granted to dispatch science vessel Curiosity-9 to investigate the subspace distortion. Maintain constant communication and implement full quarantine protocols.' },
+  { id: 13, to: 'Time Patrol', subject: 'Support Request: Temporal Stabilization', content: 'Offering assistance from our Chronos Division. Standing by with temporal shielding equipment and paradox resolution specialists.' },
+];
+
+const starredMessages = [
+  { id: 14, from: 'Intergalactic Library', subject: 'Rare Manuscript Found', read: true, content: 'A copy of "Quantum Mechanics for Multidimensional Beings" has been discovered in the ruins of Atlantis. Reserve your digital copy now.' },
+  { id: 15, from: 'Galactic Peace Corps', subject: 'Volunteer Opportunity: Diplomatic Mission', read: true, content: 'Seeking skilled negotiators for a delicate diplomatic mission to the Andromeda Galaxy. Must be proficient in at least 5000 alien languages and immune to psychic manipulation.' },
+];
+
+const criticalMessages = [
+  { id: 16, from: 'Planetary Defense Network', subject: 'URGENT: Incoming Asteroid Swarm', read: false, content: 'Multiple extinction-level asteroids detected on collision course. Planetary shield activation required immediately. This is not a drill.' },
+  { id: 17, from: 'Quantum Containment Facility', subject: 'CRITICAL: Antimatter Leak Detected', read: false, content: 'Containment breach in Sector 31. Antimatter leak spreading. Evacuation of all non-essential personnel required. Quantum stabilizers at critical levels.' },
+];
+
+const trashedMessages = [
+  { id: 18, from: 'Galactic Spam Corp', subject: 'Enlarge Your Tentacles Now!', read: true, content: 'Are your tentacles not tentacle-y enough? Try our new quantum enlargement ray! Guaranteed results or your money back!' },
+  { id: 19, from: 'Nigerian Space Prince', subject: 'Urgent Business Proposal', read: true, content: 'Greetings, I am Prince Zorg of the Andromeda Royal Family. I require your assistance in transferring 10 billion credits...' },
+];
+
 const sciFiRecipients = [
   'Galactic Council',
   'Quantum AI',
@@ -29,28 +50,23 @@ const sciFiRecipients = [
 
 export const Communications = () => {
   const [activeFolder, setActiveFolder] = useState('inbox');
-  const [messages, setMessages] = useState(sciFiMessages);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showNewMessage, setShowNewMessage] = useState(false);
 
   const folders = [
-    { name: 'inbox', icon: Inbox, label: 'Quantum Inbox' },
-    { name: 'sent', icon: Send, label: 'Subspace Sent' },
-    { name: 'starred', icon: Star, label: 'Stellar Favorites' },
-    { name: 'important', icon: AlertTriangle, label: 'Critical Transmissions' },
-    { name: 'trash', icon: Trash2, label: 'Void Disposal' },
+    { name: 'inbox', icon: Inbox, label: 'Quantum Inbox', messages: sciFiMessages },
+    { name: 'sent', icon: Send, label: 'Subspace Sent', messages: sentMessages },
+    { name: 'starred', icon: Star, label: 'Stellar Favorites', messages: starredMessages },
+    { name: 'important', icon: AlertTriangle, label: 'Critical Transmissions', messages: criticalMessages },
+    { name: 'trash', icon: Trash2, label: 'Void Disposal', messages: trashedMessages },
   ];
 
-  const filteredMessages = messages.filter(message => {
-    if (activeFolder === 'inbox') return !message.sent;
-    if (activeFolder === 'sent') return message.sent;
-    return false;
-  });
+  const currentFolder = folders.find(folder => folder.name === activeFolder);
 
   return (
     <div className="flex h-[70vh]">
       {/* Left sidebar */}
-      <div className="w-1/4 bg-[#b73616]/30 p-4 rounded-l-lg">
+      <div className="w-1/4 bg-[#b73616]/30 p-4 rounded-l-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
         <button
           onClick={() => setShowNewMessage(true)}
           className="w-full bg-[#ffd0a8] text-[#b73616] rounded-md py-2 mb-4 flex items-center justify-center"
@@ -61,7 +77,10 @@ export const Communications = () => {
         {folders.map((folder) => (
           <button
             key={folder.name}
-            onClick={() => setActiveFolder(folder.name)}
+            onClick={() => {
+              setActiveFolder(folder.name);
+              setSelectedMessage(null);
+            }}
             className={`w-full text-left mb-2 p-2 rounded-md flex items-center ${
               activeFolder === folder.name ? 'bg-[#ffd0a8]/20' : ''
             }`}
@@ -73,8 +92,8 @@ export const Communications = () => {
       </div>
 
       {/* Message list */}
-      <div className="w-1/3 bg-[#b73616]/20 p-4 overflow-y-auto">
-        {filteredMessages.map((message) => (
+      <div className="w-1/3 bg-[#b73616]/20 p-4 overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
+        {currentFolder.messages.map((message) => (
           <div
             key={message.id}
             onClick={() => setSelectedMessage(message)}
@@ -82,18 +101,18 @@ export const Communications = () => {
               message === selectedMessage ? 'bg-[#ffd0a8]/20' : ''
             }`}
           >
-            <div className="font-bold">{message.from}</div>
+            <div className="font-bold">{message.from || message.to}</div>
             <div className="text-sm opacity-70">{message.subject}</div>
           </div>
         ))}
       </div>
 
       {/* Message content */}
-      <div className="w-5/12 bg-[#b73616]/10 p-4 rounded-r-lg">
+      <div className="w-5/12 bg-[#b73616]/10 p-4 rounded-r-lg overflow-y-auto" style={{ scrollbarColor: '#f8d2ad #b73616' }}>
         {selectedMessage ? (
           <div>
             <h3 className="text-xl font-bold mb-2">{selectedMessage.subject}</h3>
-            <p className="mb-4">From: {selectedMessage.from}</p>
+            <p className="mb-4">{selectedMessage.from ? `From: ${selectedMessage.from}` : `To: ${selectedMessage.to}`}</p>
             <p>{selectedMessage.content}</p>
           </div>
         ) : (
