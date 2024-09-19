@@ -32,7 +32,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4">
-      <div className="absolute top-4 left-4 right-4 sm:left-4 sm:right-auto w-auto sm:w-56 md:w-64 max-w-[calc(100%-2rem)]">
+      <div className="absolute top-4 left-4 w-[calc(100%-2rem)] sm:w-56 md:w-64">
         <SystemStatusConsole />
       </div>
       <div className="absolute top-4 right-4">
