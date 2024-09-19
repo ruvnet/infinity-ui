@@ -1,4 +1,4 @@
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, Settings } from "lucide-react";
 import Index from "./pages/Index.jsx";
 
 /**
@@ -10,5 +10,11 @@ export const navItems = [
     to: "/",
     icon: <HomeIcon className="h-4 w-4" />,
     page: <Index />,
+  },
+  {
+    title: "Settings",
+    to: "/settings",
+    icon: <Settings className="h-4 w-4" />,
+    page: <Index />, // You might want to create a separate Settings page component
   },
 ];

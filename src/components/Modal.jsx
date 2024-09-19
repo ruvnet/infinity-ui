@@ -1,23 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Radio, Brain, Atom, Clock, Activity, Settings } from 'lucide-react';
 import { NeuralInterface, QuantumPredictions, TemporalAnomalies, SystemDiagnostics } from './ModalContent';
 import { Communications } from './Communications';
+import SettingsComponent from './SettingsComponent';
 
-const getRandomPrediction = () => {
-  const predictions = [
-    "Temporal flux detected in sector 7G. Probability of causality loop formation: 23.7%. Recommend immediate chronometric particle stabilization.",
-    "Probability of parallel universe collision: 0.003%. Increasing interdimensional shielding advised. Monitor for quantum entanglement spikes in the next 72 hours.",
-    "Quantum entanglement surge in progress. Estimated duration: 3.5 hours. Impact on local reality: minimal. Prepare for potential spacetime ripples in adjacent sectors.",
-    "Chronoton particles increasing in local space-time. Temporal stability at 94.2% and holding. Advise caution when initiating any time-sensitive experiments.",
-    "Potential timeline divergence detected. Calculating optimal intervention strategies... Probability of successful realignment: 78.3%. Standby for further instructions.",
-    "Anomalous energy signature detected in the Andromeda galaxy. Origin: unknown. Threat level: low. Initiating long-range quantum scans for further analysis.",
-    "Quantum tunneling event predicted within 24 hours. Preparing containment protocols. Estimated impact radius: 3.7 parsecs. Alert nearby star systems.",
-    "Probability of encountering alternate reality: 17.8%. Interdimensional travel advisory in effect. Recalibrate all quantum compasses and reality anchors.",
-    "Subspace distortion forming in nearby star system. Monitoring for potential wormhole formation. Current stability: 89.5%. Prepare evacuation protocols as precaution.",
-    "Temporal echo from future event detected. Data analysis underway. Preliminary findings inconclusive. Temporal shielding recommended for all sensitive equipment."
-  ];
-  return predictions[Math.floor(Math.random() * predictions.length)];
+const getModalIcon = (title) => {
+  switch (title) {
+    case 'Communications': return Radio;
+    case 'Neural Interface': return Brain;
+    case 'Quantum Predictions': return Atom;
+    case 'Temporal Anomalies': return Clock;
+    case 'System Diagnostics': return Activity;
+    case 'Settings': return Settings;
+    default: return null;
+  }
 };
 
 const Modal = ({ title, onClose }) => {
@@ -28,17 +25,19 @@ const Modal = ({ title, onClose }) => {
       case 'Neural Interface':
         return <NeuralInterface />;
       case 'Quantum Predictions':
-        return <QuantumPredictions getRandomPrediction={getRandomPrediction} />;
+        return <QuantumPredictions />;
       case 'Temporal Anomalies':
         return <TemporalAnomalies />;
       case 'System Diagnostics':
         return <SystemDiagnostics />;
+      case 'Settings':
+        return <SettingsComponent />;
       default:
         return null;
     }
   };
 
-  const isWideModal = title === 'Communications';
+  const IconComponent = getModalIcon(title);
 
   return (
     <motion.div
@@ -52,11 +51,14 @@ const Modal = ({ title, onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className={`bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] ${isWideModal ? 'w-11/12 max-w-7xl' : 'w-11/12 max-w-md'}`}
+        className="bg-[#b73616] p-6 rounded-lg border border-[#ffd0a8] w-11/12 max-w-4xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-[#ffd0a8] text-xl font-semibold">{title}</h2>
+          <h2 className="text-[#ffd0a8] text-xl font-semibold flex items-center">
+            {IconComponent && <IconComponent className="mr-2 h-6 w-6" />}
+            {title}
+          </h2>
           <button onClick={onClose} className="text-[#ffd0a8] hover:text-white transition-colors">
             <X size={24} />
           </button>

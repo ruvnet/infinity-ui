@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Brain, Atom, Clock, Activity, Radio } from 'lucide-react';
+import { Menu, X, Brain, Atom, Clock, Activity, Radio, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
 
@@ -13,6 +13,7 @@ const HamburgerMenu = () => {
     { name: "Quantum Predictions", icon: Atom },
     { name: "Temporal Anomalies", icon: Clock },
     { name: "System Diagnostics", icon: Activity },
+    { name: "Settings", icon: Settings },
   ];
 
   const handleItemClick = (itemName) => {
@@ -70,14 +71,6 @@ const HamburgerMenu = () => {
               transition={{ delay: 0.5 }}
             >
               System Status: Online
-            </motion.div>
-            <motion.div
-              className="mt-2 text-[#ffd0a8] text-xs opacity-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              created by rUv, no rights reserved
             </motion.div>
           </motion.div>
         )}
