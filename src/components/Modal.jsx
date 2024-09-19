@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, Brain, Activity, Zap, Cpu } from 'lucide-react';
+import { X, Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass } from 'lucide-react';
 
 const DashboardItem = ({ icon: Icon, label, value }) => (
   <div className="flex items-center space-x-3 bg-[#b73616]/30 p-3 rounded-lg">
@@ -29,6 +29,22 @@ const ProgressBar = ({ label, value, max }) => (
   </div>
 );
 
+const getRandomPrediction = () => {
+  const predictions = [
+    "Temporal flux detected in sector 7G",
+    "Probability of parallel universe collision: 0.003%",
+    "Quantum entanglement surge in progress",
+    "Chronoton particles increasing in local space-time",
+    "Potential timeline divergence detected",
+    "Anomalous energy signature detected in the Andromeda galaxy",
+    "Quantum tunneling event predicted within 24 hours",
+    "Probability of encountering alternate reality: 17.8%",
+    "Subspace distortion forming in nearby star system",
+    "Temporal echo from future event detected"
+  ];
+  return predictions[Math.floor(Math.random() * predictions.length)];
+};
+
 const Modal = ({ title, onClose }) => {
   const getModalContent = () => {
     switch (title) {
@@ -54,25 +70,25 @@ const Modal = ({ title, onClose }) => {
       case 'Quantum Predictions':
         return (
           <div className="space-y-4">
-            <div className="text-[#ffd0a8] text-sm">
-              <div className="opacity-70 mb-1">Quantum Entanglement Status</div>
-              <div>Stable</div>
+            <div className="grid grid-cols-2 gap-4">
+              <DashboardItem icon={Atom} label="Quantum Entanglement" value="Stable" />
+              <DashboardItem icon={GitBranch} label="Timeline Divergence" value="17.3%" />
+              <DashboardItem icon={Shuffle} label="Parallel Universes" value="1,287" />
+              <DashboardItem icon={Compass} label="Causality Loops" value="3" />
             </div>
-            <div className="text-[#ffd0a8] text-sm">
-              <div className="opacity-70 mb-1">Timeline Divergence</div>
-              <div>17.3%</div>
+            <ProgressBar label="Probability Matrix Calculation" value={78} max={100} />
+            <ProgressBar label="Quantum Coherence" value={92} max={100} />
+            <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
+              <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Latest Quantum Prediction</div>
+              <div className="text-[#ffd0a8] text-sm">
+                {getRandomPrediction()}
+              </div>
             </div>
-            <div className="text-[#ffd0a8] text-sm">
-              <div className="opacity-70 mb-1">Parallel Universes Analyzed</div>
-              <div>1,287</div>
-            </div>
-            <div className="text-[#ffd0a8] text-sm">
-              <div className="opacity-70 mb-1">Causality Loops Detected</div>
-              <div>3</div>
-            </div>
-            <div className="text-[#ffd0a8] text-sm">
-              <div className="opacity-70 mb-1">Probability Matrix</div>
-              <div>Calculating...</div>
+            <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
+              <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Quantum Forecast</div>
+              <div className="text-[#ffd0a8] text-sm">
+                {getRandomPrediction()}
+              </div>
             </div>
           </div>
         );
