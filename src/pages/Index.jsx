@@ -32,13 +32,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4">
-      <div className="absolute top-4 left-4 right-4 md:left-4 md:right-auto">
+      <div className="absolute top-4 left-4 right-4 md:left-4 md:right-auto w-[calc(100%-2rem)] md:w-64">
         <SystemStatusConsole />
       </div>
       <div className="absolute top-4 right-4">
         <HamburgerMenu />
       </div>
-      <div className="text-center flex flex-col items-center mt-20 md:mt-0">
+      <div className="text-center flex flex-col items-center mt-24 md:mt-0">
         <dotlottie-player
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"
