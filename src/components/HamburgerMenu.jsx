@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Menu, X, Brain, Atom, Clock, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Modal from './Modal';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
   const menuItems = [
     { name: "Neural Interface", icon: Brain },
@@ -12,8 +14,13 @@ const HamburgerMenu = () => {
     { name: "System Diagnostics", icon: Activity },
   ];
 
+  const handleItemClick = (itemName) => {
+    setActiveModal(itemName);
+    setIsOpen(false);
+  };
+
   return (
-    <div>
+    <>
       <button onClick={() => setIsOpen(!isOpen)} className="text-[#ffd0a8] z-50 relative">
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -35,9 +42,9 @@ const HamburgerMenu = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <a
-                      href="#"
-                      className="text-[#ffd0a8] hover:text-white transition-colors duration-300 flex items-center space-x-2 group"
+                    <button
+                      onClick={() => handleItemClick(item.name)}
+                      className="text-[#ffd0a8] hover:text-white transition-colors duration-300 flex items-center space-x-2 group w-full text-left"
                     >
                       <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                       <span className="relative overflow-hidden">
@@ -50,7 +57,7 @@ const HamburgerMenu = () => {
                           {item.name}
                         </motion.span>
                       </span>
-                    </a>
+                    </button>
                   </motion.li>
                 ))}
               </ul>
@@ -74,7 +81,10 @@ const HamburgerMenu = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      {activeModal && (
+        <Modal title={activeModal} onClose={() => setActiveModal(null)} />
+      )}
+    </>
   );
 };
 
