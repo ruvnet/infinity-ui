@@ -57,8 +57,8 @@ export const QuantumPredictions = () => {
   }, []);
 
   return (
-    <div className="space-y-4 max-w-sm mx-auto">
-      <div className="grid grid-cols-1 gap-4">
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
         <DashboardItem icon={Atom} label="Quantum Entanglement" value="Stable" />
         <DashboardItem icon={GitBranch} label="Timeline Divergence" value="17.3%" />
         <DashboardItem icon={Shuffle} label="Parallel Universes" value="1,287" />
