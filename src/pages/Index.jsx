@@ -31,14 +31,14 @@ const Index = () => {
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4 md:p-0">
-      <div className="absolute top-4 left-4 md:block hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative p-4">
+      <div className="absolute top-4 left-4 right-4 md:left-4 md:right-auto">
         <SystemStatusConsole />
       </div>
       <div className="absolute top-4 right-4">
         <HamburgerMenu />
       </div>
-      <div className="text-center flex flex-col items-center">
+      <div className="text-center flex flex-col items-center mt-20 md:mt-0">
         <dotlottie-player
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
           background="transparent"

@@ -24,22 +24,22 @@ const SystemStatusConsole = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="absolute top-4 left-4 bg-[#c34524]/20 p-2 rounded-md border border-[#ffd0a8]/30 text-[#ffd0a8] font-mono text-xs"
+      className="bg-[#c34524]/20 p-3 rounded-md border border-[#ffd0a8]/30 text-[#ffd0a8] font-mono text-xs md:text-sm w-full md:w-64"
     >
       <div className="flex items-center space-x-2 mb-1">
-        <Monitor size={12} />
+        <Monitor size={14} />
         <span>System Status: Online</span>
       </div>
       <div className="flex items-center space-x-2 mb-1">
-        <Thermometer size={12} />
+        <Thermometer size={14} />
         <span>CPU Temp: {cpuTemp}°C</span>
       </div>
       <div className="flex items-center space-x-2 mb-1">
-        <Wifi size={12} />
+        <Wifi size={14} />
         <span>Signal Strength: {wifiStrength}/5</span>
       </div>
       <div className="flex items-center space-x-2">
-        <Battery size={12} />
+        <Battery size={14} />
         <span>Power: {batteryLevel}%</span>
       </div>
     </motion.div>
