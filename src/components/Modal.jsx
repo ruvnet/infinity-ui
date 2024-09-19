@@ -1,31 +1,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Brain, Activity, Zap, Cpu } from 'lucide-react';
 
-const TypewriterText = ({ text, placeholder }) => {
-  return (
-    <div className="mb-4">
-      <div className="text-[#ffd0a8] opacity-50 mb-1 text-xs">{placeholder}</div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="text-[#ffd0a8] text-sm"
-      >
-        {text.split('').map((char, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1, delay: index * 0.05 }}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </motion.div>
+const DashboardItem = ({ icon: Icon, label, value }) => (
+  <div className="flex items-center space-x-3 bg-[#b73616]/30 p-3 rounded-lg">
+    <Icon className="text-[#ffd0a8] w-5 h-5" />
+    <div>
+      <div className="text-[#ffd0a8] text-xs opacity-70">{label}</div>
+      <div className="text-[#ffd0a8] text-sm font-semibold">{value}</div>
     </div>
-  );
-};
+  </div>
+);
+
+const ProgressBar = ({ label, value, max }) => (
+  <div className="mt-2">
+    <div className="flex justify-between text-[#ffd0a8] text-xs mb-1">
+      <span>{label}</span>
+      <span>{value}/{max}</span>
+    </div>
+    <div className="bg-[#ffd0a8]/20 h-2 rounded-full overflow-hidden">
+      <motion.div
+        className="h-full bg-[#ffd0a8]"
+        initial={{ width: 0 }}
+        animate={{ width: `${(value / max) * 100}%` }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+      />
+    </div>
+  </div>
+);
 
 const Modal = ({ title, onClose }) => {
   const getModalContent = () => {
@@ -33,43 +35,99 @@ const Modal = ({ title, onClose }) => {
       case 'Neural Interface':
         return (
           <div className="space-y-4">
-            <TypewriterText placeholder="Synaptic Link Status" text="Synaptic Link Established" />
-            <TypewriterText placeholder="Cognitive Enhancement" text="Cognitive Enhancement: Active" />
-            <TypewriterText placeholder="Neural Pathway Status" text="Neural Pathways: Optimized" />
-            <TypewriterText placeholder="Thought Amplification" text="Thought Amplification: 300%" />
-            <TypewriterText placeholder="Memory Recall Status" text="Memory Recall: Enhanced" />
-            <TypewriterText placeholder="Subconscious Integration" text="Subconscious Integration: In Progress" />
+            <div className="grid grid-cols-2 gap-4">
+              <DashboardItem icon={Brain} label="Synaptic Link" value="Active" />
+              <DashboardItem icon={Activity} label="Neural Activity" value="87%" />
+              <DashboardItem icon={Zap} label="Cognitive Boost" value="+35%" />
+              <DashboardItem icon={Cpu} label="Processing Power" value="1.2 PHz" />
+            </div>
+            <ProgressBar label="Memory Optimization" value={750} max={1000} />
+            <ProgressBar label="Thought Amplification" value={3} max={5} />
+            <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
+              <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Neural Pathway Status</div>
+              <div className="text-[#ffd0a8] text-sm">
+                Optimizing... Current efficiency: 92.7%
+              </div>
+            </div>
           </div>
         );
       case 'Quantum Predictions':
         return (
           <div className="space-y-4">
-            <TypewriterText placeholder="Quantum Entanglement Status" text="Quantum Entanglement: Stable" />
-            <TypewriterText placeholder="Timeline Divergence" text="Timeline Divergence: 17.3%" />
-            <TypewriterText placeholder="Parallel Universes" text="Parallel Universes Analyzed: 1,287" />
-            <TypewriterText placeholder="Causality Loops" text="Causality Loops Detected: 3" />
-            <TypewriterText placeholder="Probability Matrix" text="Probability Matrix Calculating..." />
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Quantum Entanglement Status</div>
+              <div>Stable</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Timeline Divergence</div>
+              <div>17.3%</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Parallel Universes Analyzed</div>
+              <div>1,287</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Causality Loops Detected</div>
+              <div>3</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Probability Matrix</div>
+              <div>Calculating...</div>
+            </div>
           </div>
         );
       case 'Temporal Anomalies':
         return (
           <div className="space-y-4">
-            <TypewriterText placeholder="Temporal Flux" text="Temporal Flux Detected" />
-            <TypewriterText placeholder="Paradox Risk" text="Paradox Risk: Moderate" />
-            <TypewriterText placeholder="Chrono-particle Count" text="Chrono-particles Detected: 1.8M" />
-            <TypewriterText placeholder="Time Dilation Factor" text="Time Dilation Factor: x2.7" />
-            <TypewriterText placeholder="Temporal Echoes" text="Temporal Echoes: 5" />
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Temporal Flux</div>
+              <div>Detected</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Paradox Risk</div>
+              <div>Moderate</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Chrono-particles Detected</div>
+              <div>1.8M</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Time Dilation Factor</div>
+              <div>x2.7</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Temporal Echoes</div>
+              <div>5</div>
+            </div>
           </div>
         );
       case 'System Diagnostics':
         return (
           <div className="space-y-4">
-            <TypewriterText placeholder="System Integrity" text="System Integrity: 98.7%" />
-            <TypewriterText placeholder="AI Subsystems" text="AI Subsystems: Optimal" />
-            <TypewriterText placeholder="Quantum Core" text="Quantum Core: Stable" />
-            <TypewriterText placeholder="Firewall Status" text="Firewall Integrity: 99.9%" />
-            <TypewriterText placeholder="Encryption Status" text="Quantum Encryption: Active" />
-            <TypewriterText placeholder="System Uptime" text="System Uptime: 7,345 days" />
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">System Integrity</div>
+              <div>98.7%</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">AI Subsystems</div>
+              <div>Optimal</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Quantum Core</div>
+              <div>Stable</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Firewall Integrity</div>
+              <div>99.9%</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">Quantum Encryption</div>
+              <div>Active</div>
+            </div>
+            <div className="text-[#ffd0a8] text-sm">
+              <div className="opacity-70 mb-1">System Uptime</div>
+              <div>7,345 days</div>
+            </div>
           </div>
         );
       default:
