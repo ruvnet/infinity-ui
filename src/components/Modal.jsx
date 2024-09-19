@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass } from 'lucide-react';
 
@@ -31,21 +31,63 @@ const ProgressBar = ({ label, value, max }) => (
 
 const getRandomPrediction = () => {
   const predictions = [
-    "Temporal flux detected in sector 7G. Probability of causality loop formation: 23.7%",
-    "Probability of parallel universe collision: 0.003%. Recommend increasing interdimensional shielding",
-    "Quantum entanglement surge in progress. Estimated duration: 3.5 hours. Impact on local reality: minimal",
-    "Chronoton particles increasing in local space-time. Temporal stability at 94.2% and holding",
-    "Potential timeline divergence detected. Calculating optimal intervention strategies...",
-    "Anomalous energy signature detected in the Andromeda galaxy. Origin: unknown. Threat level: low",
-    "Quantum tunneling event predicted within 24 hours. Preparing containment protocols",
-    "Probability of encountering alternate reality: 17.8%. Interdimensional travel advisory in effect",
-    "Subspace distortion forming in nearby star system. Monitoring for potential wormhole formation",
-    "Temporal echo from future event detected. Data analysis underway. Preliminary findings inconclusive"
+    "Temporal flux detected in sector 7G. Probability of causality loop formation: 23.7%. Recommend immediate chronometric particle stabilization.",
+    "Probability of parallel universe collision: 0.003%. Increasing interdimensional shielding advised. Monitor for quantum entanglement spikes in the next 72 hours.",
+    "Quantum entanglement surge in progress. Estimated duration: 3.5 hours. Impact on local reality: minimal. Prepare for potential spacetime ripples in adjacent sectors.",
+    "Chronoton particles increasing in local space-time. Temporal stability at 94.2% and holding. Advise caution when initiating any time-sensitive experiments.",
+    "Potential timeline divergence detected. Calculating optimal intervention strategies... Probability of successful realignment: 78.3%. Standby for further instructions.",
+    "Anomalous energy signature detected in the Andromeda galaxy. Origin: unknown. Threat level: low. Initiating long-range quantum scans for further analysis.",
+    "Quantum tunneling event predicted within 24 hours. Preparing containment protocols. Estimated impact radius: 3.7 parsecs. Alert nearby star systems.",
+    "Probability of encountering alternate reality: 17.8%. Interdimensional travel advisory in effect. Recalibrate all quantum compasses and reality anchors.",
+    "Subspace distortion forming in nearby star system. Monitoring for potential wormhole formation. Current stability: 89.5%. Prepare evacuation protocols as precaution.",
+    "Temporal echo from future event detected. Data analysis underway. Preliminary findings inconclusive. Temporal shielding recommended for all sensitive equipment."
   ];
   return predictions[Math.floor(Math.random() * predictions.length)];
 };
 
+const useTypingEffect = (text, speed = 50) => {
+  const [displayedText, setDisplayedText] = useState('');
+
+  useEffect(() => {
+    let i = 0;
+    setDisplayedText('');
+    const typingInterval = setInterval(() => {
+      if (i < text.length) {
+        setDisplayedText(prev => prev + text.charAt(i));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, speed);
+
+    return () => clearInterval(typingInterval);
+  }, [text, speed]);
+
+  return displayedText;
+};
+
 const Modal = ({ title, onClose }) => {
+  const [latestPrediction, setLatestPrediction] = useState(getRandomPrediction());
+  const [quantumForecast, setQuantumForecast] = useState(getRandomPrediction());
+  
+  const displayedLatestPrediction = useTypingEffect(latestPrediction, 30);
+  const displayedQuantumForecast = useTypingEffect(quantumForecast, 30);
+
+  useEffect(() => {
+    const latestPredictionInterval = setInterval(() => {
+      setLatestPrediction(getRandomPrediction());
+    }, 10000);
+
+    const quantumForecastInterval = setInterval(() => {
+      setQuantumForecast(getRandomPrediction());
+    }, 15000);
+
+    return () => {
+      clearInterval(latestPredictionInterval);
+      clearInterval(quantumForecastInterval);
+    };
+  }, []);
+
   const getModalContent = () => {
     switch (title) {
       case 'Neural Interface':
@@ -80,14 +122,14 @@ const Modal = ({ title, onClose }) => {
             <ProgressBar label="Quantum Coherence" value={92} max={100} />
             <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
               <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Latest Quantum Prediction</div>
-              <div className="text-[#ffd0a8] text-sm">
-                {getRandomPrediction()}
+              <div className="text-[#ffd0a8] text-sm h-20 overflow-y-auto">
+                {displayedLatestPrediction}
               </div>
             </div>
             <div className="mt-4 bg-[#b73616]/30 p-3 rounded-lg">
               <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">Quantum Forecast</div>
-              <div className="text-[#ffd0a8] text-sm">
-                {getRandomPrediction()}
+              <div className="text-[#ffd0a8] text-sm h-20 overflow-y-auto">
+                {displayedQuantumForecast}
               </div>
             </div>
           </div>
