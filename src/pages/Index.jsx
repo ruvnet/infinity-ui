@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingScreen from '../components/LoadingScreen';
+import HamburgerMenu from '../components/HamburgerMenu';
 import { createClient } from '@deepgram/sdk';
 
 const loadingStatements = [
@@ -63,7 +64,10 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#c34524] text-[#ffd0a8] relative">
+      <div className="absolute top-4 right-4">
+        <HamburgerMenu />
+      </div>
       <div className="text-center flex flex-col items-center">
         <dotlottie-player
           src="https://lottie.host/8e226440-96e5-469a-b179-1b2fa30ed153/gEwqUUfYx6.json"
