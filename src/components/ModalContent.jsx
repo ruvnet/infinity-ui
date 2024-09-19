@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass, Clock, AlertTriangle, Zap as ZapIcon, Refresh } from 'lucide-react';
+import { Brain, Activity, Zap, Cpu, Atom, GitBranch, Shuffle, Compass, Clock, AlertTriangle, ZapIcon, RotateCw } from 'lucide-react';
 import { DashboardItem, ProgressBar, PredictionDisplay, FlashingText } from './ModalComponents';
 
 export const NeuralInterface = () => (
@@ -90,7 +90,7 @@ export const TemporalAnomalies = () => {
         <DashboardItem icon={Clock} label="Temporal Flux" value="Detected" />
         <DashboardItem icon={AlertTriangle} label="Paradox Risk" value="Moderate" />
         <DashboardItem icon={ZapIcon} label="Chrono-particles" value="1.8M" />
-        <DashboardItem icon={Refresh} label="Time Dilation" value="x2.7" />
+        <DashboardItem icon={RotateCw} label="Time Dilation" value="x2.7" />
       </div>
       <ProgressBar label="Timeline Stability" value={68} max={100} />
       <ProgressBar label="Temporal Shield Integrity" value={85} max={100} />
