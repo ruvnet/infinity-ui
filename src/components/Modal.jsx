@@ -31,16 +31,16 @@ const ProgressBar = ({ label, value, max }) => (
 
 const getRandomPrediction = () => {
   const predictions = [
-    "Temporal flux detected in sector 7G",
-    "Probability of parallel universe collision: 0.003%",
-    "Quantum entanglement surge in progress",
-    "Chronoton particles increasing in local space-time",
-    "Potential timeline divergence detected",
-    "Anomalous energy signature detected in the Andromeda galaxy",
-    "Quantum tunneling event predicted within 24 hours",
-    "Probability of encountering alternate reality: 17.8%",
-    "Subspace distortion forming in nearby star system",
-    "Temporal echo from future event detected"
+    "Temporal flux detected in sector 7G. Probability of causality loop formation: 23.7%",
+    "Probability of parallel universe collision: 0.003%. Recommend increasing interdimensional shielding",
+    "Quantum entanglement surge in progress. Estimated duration: 3.5 hours. Impact on local reality: minimal",
+    "Chronoton particles increasing in local space-time. Temporal stability at 94.2% and holding",
+    "Potential timeline divergence detected. Calculating optimal intervention strategies...",
+    "Anomalous energy signature detected in the Andromeda galaxy. Origin: unknown. Threat level: low",
+    "Quantum tunneling event predicted within 24 hours. Preparing containment protocols",
+    "Probability of encountering alternate reality: 17.8%. Interdimensional travel advisory in effect",
+    "Subspace distortion forming in nearby star system. Monitoring for potential wormhole formation",
+    "Temporal echo from future event detected. Data analysis underway. Preliminary findings inconclusive"
   ];
   return predictions[Math.floor(Math.random() * predictions.length)];
 };
