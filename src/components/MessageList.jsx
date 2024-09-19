@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 
 const messages = [
-  { id: 1, from: 'Galactic Council', subject: 'Urgent: Hyperspace Lane Closure', read: false },
-  { id: 2, from: 'Quantum AI', subject: 'Anomaly Detected in Sector 7G', read: true },
-  { id: 3, from: 'Time Patrol', subject: 'Temporal Incursion Alert', read: false },
+  { id: 1, from: 'Galactic Council', subject: 'Urgent: Hyperspace Lane Closure', read: false, content: 'Due to unexpected quantum fluctuations, the Orion-Cygnus hyperspace lane will be closed for the next 72 standard hours. All interstellar traffic must reroute through the Sagittarius bypass. Expect delays and increased fuel consumption.' },
+  { id: 2, from: 'Quantum AI', subject: 'Anomaly Detected in Sector 7G', read: true, content: 'Our quantum sensors have detected an unusual subspace distortion in Sector 7G. Initial analysis suggests a possible interdimensional rift. Recommend dispatching a science vessel for further investigation.' },
+  { id: 3, from: 'Time Patrol', subject: 'Temporal Incursion Alert', read: false, content: 'Multiple timeline alterations detected in the Centauri system. Chrono-agents are being dispatched to stabilize the temporal flux. All time-sensitive operations in the affected area must cease immediately.' },
 ];
 
 const MessageList = ({ activeView, setActiveView, setSelectedMessage, folders }) => (
