@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Brain, Atom, Clock, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { name: "Neural Interface", icon: "🧠" },
-    { name: "Quantum Predictions", icon: "🔮" },
-    { name: "Temporal Anomalies", icon: "⏳" },
-    { name: "System Diagnostics", icon: "🔬" },
+    { name: "Neural Interface", icon: Brain },
+    { name: "Quantum Predictions", icon: Atom },
+    { name: "Temporal Anomalies", icon: Clock },
+    { name: "System Diagnostics", icon: Activity },
   ];
 
   return (
@@ -39,7 +39,7 @@ const HamburgerMenu = () => {
                       href="#"
                       className="text-[#ffd0a8] hover:text-white transition-colors duration-300 flex items-center space-x-2 group"
                     >
-                      <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
+                      <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                       <span className="relative overflow-hidden">
                         <motion.span
                           className="inline-block"
