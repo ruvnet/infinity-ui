@@ -29,10 +29,16 @@ export const ProgressBar = ({ label, value, max }) => (
 );
 
 export const PredictionDisplay = ({ label, prediction }) => (
-  <div className="mt-2 bg-[#b73616]/30 p-3 rounded-lg">
+  <motion.div
+    key={prediction}
+    initial={{ opacity: 0.5 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+    className="mt-2 bg-[#b73616]/30 p-3 rounded-lg"
+  >
     <div className="text-[#ffd0a8] text-xs opacity-70 mb-1">{label}</div>
-    <div className="text-[#ffd0a8] text-sm h-16 overflow-y-auto whitespace-pre-wrap">
-      <span className="inline-block min-w-[1px]">{prediction}</span>
+    <div className="text-[#ffd0a8] text-sm h-16 overflow-y-auto">
+      {prediction}
     </div>
-  </div>
+  </motion.div>
 );
