@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Inbox, Send, Plus, Star, AlertTriangle, Trash2 } from 'lucide-react';
+import { Inbox, Send, Plus, Star, AlertTriangle, Trash2, X, Reply } from 'lucide-react';
 
 const sciFiMessages = [
   { id: 1, from: 'Galactic Council', subject: 'Urgent: Hyperspace Lane Closure', read: false, content: 'Due to unexpected quantum fluctuations, the Orion-Cygnus hyperspace lane will be closed for the next 72 standard hours. All interstellar traffic must reroute through the Sagittarius bypass. Expect delays and increased fuel consumption.' },
@@ -63,6 +63,17 @@ export const Communications = () => {
 
   const currentFolder = folders.find(folder => folder.name === activeFolder);
 
+  const handleDelete = (messageId) => {
+    const updatedMessages = currentFolder.messages.filter(message => message.id !== messageId);
+    currentFolder.messages = updatedMessages;
+    setSelectedMessage(null);
+  };
+
+  const handleReply = (message) => {
+    setShowNewMessage(true);
+    // Pre-fill the reply form (you can expand this functionality as needed)
+  };
+
   return (
     <div className="flex h-[70vh]">
       {/* Left sidebar */}
@@ -96,13 +107,22 @@ export const Communications = () => {
         {currentFolder.messages.map((message) => (
           <div
             key={message.id}
-            onClick={() => setSelectedMessage(message)}
-            className={`p-2 mb-2 rounded-md cursor-pointer ${
+            className={`p-2 mb-2 rounded-md cursor-pointer flex justify-between items-center ${
               message === selectedMessage ? 'bg-[#ffd0a8]/20' : ''
             }`}
           >
-            <div className="font-bold">{message.from || message.to}</div>
-            <div className="text-sm opacity-70">{message.subject}</div>
+            <div onClick={() => setSelectedMessage(message)} className="flex-grow">
+              <div className="font-bold">{message.from || message.to}</div>
+              <div className="text-sm opacity-70">{message.subject}</div>
+            </div>
+            <div className="flex space-x-2">
+              <button onClick={() => handleReply(message)} className="text-[#ffd0a8] hover:text-white">
+                <Reply size={16} />
+              </button>
+              <button onClick={() => handleDelete(message.id)} className="text-[#ffd0a8] hover:text-white">
+                <X size={16} />
+              </button>
+            </div>
           </div>
         ))}
       </div>
