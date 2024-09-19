@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Lottie from 'lottie-react';
 import LoadingScreen from '../components/LoadingScreen';
 
 const Index = () => {
@@ -18,9 +19,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#c34524] text-[#ffd0a8]">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your App</h1>
-        <p className="text-xl">Start building your amazing project here!</p>
+      <div className="w-64 h-64">
+        <Lottie
+          animationData={require('../assets/lottie-animation.json')}
+          loop={true}
+          autoplay={true}
+        />
       </div>
     </div>
   );
