@@ -7,52 +7,34 @@ const Modal = ({ title, onClose }) => {
     switch (title) {
       case 'Neural Interface':
         return (
-          <div className="space-y-4">
-            <div className="h-4 bg-[#f8d2ad] opacity-50 rounded"></div>
-            <div className="h-4 bg-[#f8d2ad] opacity-30 rounded w-3/4"></div>
-            <div className="grid grid-cols-3 gap-2">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="h-8 bg-[#f8d2ad] opacity-20 rounded"></div>
-              ))}
-            </div>
+          <div className="space-y-4 text-[#f8d2ad]">
+            <p>Synaptic links established. Consciousness expanded.</p>
+            <p>The neural mesh hums with potential, ready to unlock the secrets of the cosmos.</p>
+            <p>Warning: Uncharted neural pathways detected. Proceed with caution.</p>
           </div>
         );
       case 'Quantum Predictions':
         return (
-          <div className="space-y-4">
-            <div className="flex justify-between">
-              <div className="w-1/3 h-16 bg-[#f8d2ad] opacity-30 rounded"></div>
-              <div className="w-1/3 h-16 bg-[#f8d2ad] opacity-50 rounded"></div>
-              <div className="w-1/3 h-16 bg-[#f8d2ad] opacity-70 rounded"></div>
-            </div>
-            <div className="h-32 bg-[#f8d2ad] opacity-20 rounded"></div>
+          <div className="space-y-4 text-[#f8d2ad]">
+            <p>Quantum fluctuations reveal glimpses of possible futures.</p>
+            <p>Probability waves collapse: A nexus of realities converges.</p>
+            <p>Attention: Temporal paradox risk at 63%. Stabilize the continuum.</p>
           </div>
         );
       case 'Temporal Anomalies':
         return (
-          <div className="space-y-4">
-            <div className="flex space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-1/4 h-4 bg-[#f8d2ad] opacity-40 rounded"></div>
-              ))}
-            </div>
-            <div className="h-40 bg-[#f8d2ad] opacity-30 rounded"></div>
-            <div className="flex justify-between">
-              <div className="w-1/2 h-8 bg-[#f8d2ad] opacity-50 rounded"></div>
-              <div className="w-1/3 h-8 bg-[#f8d2ad] opacity-50 rounded"></div>
-            </div>
+          <div className="space-y-4 text-[#f8d2ad]">
+            <p>Chrono-distortions detected in sector 7G.</p>
+            <p>Past and future bleed into the present. Time itself unravels.</p>
+            <p>Critical: Initiate temporal containment protocols immediately.</p>
           </div>
         );
       case 'System Diagnostics':
         return (
-          <div className="space-y-4">
-            <div className="h-8 bg-[#f8d2ad] opacity-60 rounded"></div>
-            <div className="grid grid-cols-2 gap-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-16 bg-[#f8d2ad] opacity-30 rounded"></div>
-              ))}
-            </div>
-            <div className="h-4 bg-[#f8d2ad] opacity-40 rounded w-1/2"></div>
+          <div className="space-y-4 text-[#f8d2ad]">
+            <p>AI Core: Optimal | Quantum Drive: 98% | Temporal Shields: Fluctuating</p>
+            <p>Anomaly detected: Unknown energy signature permeating all systems.</p>
+            <p>Urgent: Recalibrate all sensors. Prepare for transdimensional shift.</p>
           </div>
         );
       default:
