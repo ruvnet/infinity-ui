@@ -91,8 +91,10 @@ const QuantumPredictions = () => {
       </div>
       <ProgressBar label="Probability Matrix Calculation" value={78} max={100} />
       <ProgressBar label="Quantum Coherence" value={92} max={100} />
-      <PredictionDisplay label="Latest Quantum Prediction" prediction={displayedLatestPrediction} />
-      <PredictionDisplay label="Quantum Forecast" prediction={displayedQuantumForecast} />
+      <div className="space-y-2">
+        <PredictionDisplay label="Latest Quantum Prediction" prediction={displayedLatestPrediction} />
+        <PredictionDisplay label="Quantum Forecast" prediction={displayedQuantumForecast} />
+      </div>
     </div>
   );
 };
